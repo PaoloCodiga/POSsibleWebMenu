@@ -12,8 +12,8 @@ This checklist is only marked complete after the relevant implementation has bee
 - [ ] Public route
 - [ ] Builder-options route
 - [ ] Snippet registration
-- [ ] QWeb
-- [ ] CSS layouts
+- [ ] QWeb (B1 in progress)
+- [ ] CSS layouts (B1 in progress)
 - [ ] Frontend Interaction
 - [ ] Pure JavaScript utilities
 - [ ] Builder option component
