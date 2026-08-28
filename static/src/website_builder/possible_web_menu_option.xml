@@ -1,0 +1,1 @@
+<templates xml:space="preserve"><t t-name="possible_web_menu.Option"><div class="o_we_custom_option"><button type="button" class="btn btn-primary">Configure menu</button><p class="small text-muted">Configure pricelist, categories, filters and layout.</p></div></t></templates>

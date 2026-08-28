@@ -1,0 +1,4 @@
+<odoo>
+  <record id="product_pricelist_form_web_menu" model="ir.ui.view"><field name="name">product.pricelist.form.web.menu</field><field name="model">product.pricelist</field><field name="inherit_id" ref="product.product_pricelist_view"/><field name="arch" type="xml"><field name="active" position="after"><field name="web_menu_available" help="Allows this pricelist to be selected by the public POS web menu."/></field></field></record>
+  <record id="product_pricelist_search_web_menu" model="ir.ui.view"><field name="name">product.pricelist.search.web.menu</field><field name="model">product.pricelist</field><field name="inherit_id" ref="product.product_pricelist_view_search"/><field name="arch" type="xml"><filter name="inactive" position="after"><filter string="Available in Web Menu" name="web_menu_available" domain="[('web_menu_available', '=', True)]"/></filter></field></record>
+</odoo>

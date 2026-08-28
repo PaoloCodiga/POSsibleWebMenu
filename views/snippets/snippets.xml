@@ -1,0 +1,6 @@
+<odoo>
+  <template id="snippets" inherit_id="website.snippets" name="POSsible snippets">
+    <xpath expr="//snippets[@id='snippet_groups']" position="inside"><t snippet-group="possible" t-snippet="website.s_snippet_group" string="POSsible" t-thumbnail="/possible_web_menu/static/src/img/wbuilder/possible_snippet_group.svg"/></xpath>
+    <xpath expr="//snippets[@id='snippet_structure']" position="inside"><t t-snippet="possible_web_menu.s_possible_web_menu" string="POS Web Menu" group="possible" t-thumbnail="/possible_web_menu/static/src/img/snippets_thumbs/s_possible_web_menu.svg"/></xpath>
+  </template>
+</odoo>

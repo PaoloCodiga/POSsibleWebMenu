@@ -1,0 +1,7 @@
+<odoo>
+  <template id="web_menu_fragment" name="POSsible Web Menu fragment">
+    <div class="s_possible_web_menu_result" t-attf-class="s_possible_web_menu_result s_possible_web_menu_#{config['layout']}">
+      <t t-foreach="groups" t-as="group"><section class="s_possible_web_menu_group"><h3 t-esc="group['category'].name if group['category'] else group['name']"/><ul class="s_possible_web_menu_products"><t t-foreach="group['products']" t-as="product"><li class="s_possible_web_menu_row"><div class="s_possible_web_menu_information"><span class="s_possible_web_menu_name" t-esc="product.display_name"/><small t-if="config['show_internal_reference'] and product.default_code" class="s_possible_web_menu_reference" t-esc="product.default_code"/><p t-if="config['show_description'] and product.public_description or config['show_description'] and product.description_sale" class="s_possible_web_menu_description" t-esc="env['possible.web.menu.renderer']._get_product_description(product)"/></div><span class="s_possible_web_menu_leader" aria-hidden="true"/><span class="s_possible_web_menu_price" t-field="prices[product.id]" t-options="{'widget': 'monetary', 'display_currency': currency}"/></li></t></ul></section></t>
+    </div>
+  </template>
+</odoo>
