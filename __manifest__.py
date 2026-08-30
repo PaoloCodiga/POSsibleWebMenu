@@ -25,7 +25,9 @@
         ],
         "web.assets_unit_tests": [
             "possible_web_menu/static/src/snippets/s_possible_web_menu/possible_web_menu_utils.js",
+            "possible_web_menu/static/src/snippets/s_possible_web_menu/possible_web_menu.js",
             "possible_web_menu/static/tests/possible_web_menu_utils.test.js",
+            "possible_web_menu/static/tests/possible_web_menu_interaction.test.js",
         ],
     },
     "application": False,

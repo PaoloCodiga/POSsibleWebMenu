@@ -4,6 +4,7 @@ import { DEFAULT_CONFIG, normalizeDataset, parseBoolean, parseCategoryIds, parse
 
 describe("possible web menu configuration utilities", () => {
     test("parses strict booleans and positive integers", () => {
+        globalThis.__possibleWebMenuHootExecuted = true;
         expect(parseBoolean("true", false)).toBe(true);
         expect(parseBoolean("false", true)).toBe(false);
         expect(parseBoolean("yes", true)).toBe(true);
@@ -17,6 +18,6 @@ describe("possible web menu configuration utilities", () => {
         expect(config.posCategoryIds).toEqual([2, 4]);
         expect(config.filterSale).toBe(false);
         expect(config.layout).toBe(DEFAULT_CONFIG.layout);
-        expect(payloadFromConfig(config)).not.toHaveProperty("domain");
+        expect(Object.hasOwn(payloadFromConfig(config), "domain")).toBe(false);
     });
 });

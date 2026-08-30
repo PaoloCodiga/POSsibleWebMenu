@@ -20,4 +20,7 @@ services:
     volumes:
       - ..:/mnt/extra-addons/possible_web_menu:ro
       - ../artifacts:/var/log/odoo
+      - odoo_data:/var/lib/odoo
     command: ["odoo", "--config=/mnt/extra-addons/possible_web_menu/.dev/odoo.conf"]
+volumes:
+  odoo_data:
