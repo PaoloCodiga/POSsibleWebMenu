@@ -2,6 +2,7 @@
 
 import { describe, expect, getFixture, test } from "@odoo/hoot";
 import { queryOne } from "@odoo/hoot-dom";
+import { rpc } from "@web/core/network/rpc";
 
 import { PossibleWebMenuInteraction } from "@possible_web_menu/snippets/s_possible_web_menu/possible_web_menu";
 
@@ -21,20 +22,28 @@ const snippet = (pricelistId = "7") => /* xml */ `
         data-sort-mode="favorite_ref_name"
         data-layout="leaders">
         <div class="s_possible_web_menu_content" aria-busy="false"></div>
-        <p class="s_possible_web_menu_editor_warning">Configure this menu</p>
+        <p class="s_possible_web_menu_editor_warning d-none" data-warning="configure">Configure this menu to preview products.</p>
+        <p class="s_possible_web_menu_editor_warning d-none" data-warning="empty">No products match this menu configuration.</p>
+        <p class="s_possible_web_menu_editor_warning d-none" data-warning="failure">The menu preview is temporarily unavailable.</p>
     </section>`;
 
-async function startMenuInteraction(html, rpc) {
+async function startMenuInteraction(html, rpcHandler) {
     const fixture = getFixture();
     fixture.innerHTML = html;
+    const originalRpc = rpc._rpc;
+    rpc._rpc = rpcHandler;
     const interaction = new PossibleWebMenuInteraction(
         queryOne(".s_possible_web_menu"),
-        { services: { rpc } },
+        { services: {} },
         { isDestroyed: false }
     );
 
-    interaction.setup();
-    await interaction.willStart();
+    try {
+        interaction.setup();
+        await interaction.willStart();
+    } finally {
+        rpc._rpc = originalRpc;
+    }
     return interaction;
 }
 
@@ -69,7 +78,7 @@ describe("possible web menu public interaction", () => {
 
         expect(queryOne(".s_possible_web_menu_content").textContent).toBe("Rendered menu");
         expect(queryOne(".s_possible_web_menu_content")).toHaveAttribute("aria-busy", "false");
-        expect(queryOne(".s_possible_web_menu_editor_warning")).toHaveClass("d-none");
+        expect(queryOne('[data-warning="configure"]')).toHaveClass("d-none");
     });
 
     test("does not call the public route without a pricelist", async () => {
@@ -81,5 +90,32 @@ describe("possible web menu public interaction", () => {
 
         expect(calls).toBe(0);
         expect(queryOne(".s_possible_web_menu_content")).toHaveText("");
+    });
+
+    test("shows empty and failure feedback only in the editor", async () => {
+        const fixture = getFixture();
+        fixture.innerHTML = snippet();
+        const root = queryOne(".s_possible_web_menu");
+        root.classList.add("o_editable");
+        const originalRpc = rpc._rpc;
+        rpc._rpc = async () => ({ ok: true, html: "", product_count: 0 });
+        const empty = new PossibleWebMenuInteraction(root, { services: {} }, { isDestroyed: false });
+        try {
+            empty.setup();
+            await empty.willStart();
+        } finally {
+            rpc._rpc = originalRpc;
+        }
+        expect(queryOne('[data-warning="empty"]')).not.toHaveClass("d-none");
+
+        rpc._rpc = async () => ({ ok: false, html: "", product_count: 0 });
+        const failure = new PossibleWebMenuInteraction(root, { services: {} }, { isDestroyed: false });
+        try {
+            failure.setup();
+            await failure.willStart();
+        } finally {
+            rpc._rpc = originalRpc;
+        }
+        expect(queryOne('[data-warning="failure"]')).not.toHaveClass("d-none");
     });
 });

@@ -19,11 +19,11 @@ This checklist is only marked complete after the relevant implementation has bee
 - [ ] Builder option component
 - [ ] Configuration dialog
 - [ ] Undo/redo integration
-- [ ] Clean-before-save handling
-- [ ] Clone behavior
+- [x] Clean-before-save handling
+- [x] Clone behavior
 - [ ] Python tests
 - [ ] HTTP tests
-- [ ] Hoot tests
+- [x] Hoot tests
 - [ ] Public tour
 - [ ] Website Builder tour
 - [ ] Docker harness

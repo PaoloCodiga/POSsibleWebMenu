@@ -1,3 +1,5 @@
+import os
+
 from odoo.addons.web.tests.test_js import HOOTCommon, unit_test_error_checker
 from odoo.tests import no_retry, tagged
 
@@ -9,13 +11,23 @@ class TestWebMenuHoot(HOOTCommon):
     HOOT_DESCRIPTORS = (
         "@possible_web_menu/possible_web_menu_utils",
         "@possible_web_menu/possible_web_menu_interaction",
+        "@possible_web_menu/possible_web_menu_builder_cleanup",
     )
+
+    @classmethod
+    def _get_hoot_descriptors(cls):
+        requested = os.environ.get("POSSIBLE_WEB_MENU_HOOT_DESCRIPTOR")
+        if not requested:
+            return cls.HOOT_DESCRIPTORS
+        if requested not in cls.HOOT_DESCRIPTORS:
+            raise ValueError("Unsupported possible_web_menu HOOT descriptor.")
+        return (requested,)
 
     def setUp(self):
         super().setUp()
         # Odoo's generic setup initializes _test_params. Set the descriptor
         # afterwards, then regenerate HOOTCommon's native hash filter.
-        self._test_params = [("+", descriptor) for descriptor in self.HOOT_DESCRIPTORS]
+        self._test_params = [("+", descriptor) for descriptor in self._get_hoot_descriptors()]
         self.hoot_filters = self.get_hoot_filters()
 
     @no_retry

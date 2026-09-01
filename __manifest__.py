@@ -4,7 +4,7 @@
     "category": "Website",
     "license": "LGPL-3",
     "author": "POSsible",
-    "depends": ["website", "point_of_sale"],
+    "depends": ["website", "point_of_sale", "web_tour"],
     "data": [
         "views/product_template_views.xml",
         "views/product_pricelist_views.xml",
@@ -28,6 +28,11 @@
             "possible_web_menu/static/src/snippets/s_possible_web_menu/possible_web_menu.js",
             "possible_web_menu/static/tests/possible_web_menu_utils.test.js",
             "possible_web_menu/static/tests/possible_web_menu_interaction.test.js",
+            "possible_web_menu/static/src/website_builder/possible_web_menu_option_plugin.js",
+            "possible_web_menu/static/tests/possible_web_menu_builder_cleanup.test.js",
+        ],
+        "web.assets_tests": [
+            "possible_web_menu/static/tests/possible_web_menu_builder_persistence_tour.js",
         ],
     },
     "application": False,

@@ -12,4 +12,13 @@ Verified against local official image `odoo:19.0` reporting `19.0-20260810`.
 - `addons/web/static/src/public/interaction.js`: public interactions use `setup`, `willStart`, `start`, and `destroy`; asynchronous initial work belongs in `willStart`.
 - `addons/web/tests/test_js.py`: `HOOTCommon.get_hoot_filters()` converts `_test_params` descriptors to `id=<hash>` parameters. B2.1 filters the Hoot suite descriptor `@possible_web_menu/possible_web_menu_utils` through this inherited helper.
 
-The frontend implementation is intentionally outside Checkpoint A and will be re-verified before it is tested.
+## B3 Website Builder lifecycle
+
+- `html_editor/static/src/editor.js` builds a detached clone in `getElContent()` and invokes `clean_for_save_handlers` with that clone as `root`.
+- `website/static/src/builder/plugins/edit_interaction_plugin.js` stops interactions before cloning and restarts the original afterwards. `on_cloned_handlers` receives `cloneEl`; newly inserted clones start their own interactions.
+- Website edit mode uses `.o_editable` and `body.editor_enable`. The Interaction uses those markers only for editor feedback.
+- Browser tours use `registry.category("web_tour.tours")`; Website Builder patterns use `registerWebsitePreviewTour` and `:iframe` selectors from `@website/js/tours/tour_utils`.
+- The B3 persistence test creates an isolated `website.page` fixture with a
+  real positive pricelist and product. It proves public rendering before edit,
+  uses the native Builder save action, asserts the persisted architecture has
+  no generated runtime markup, and proves the public reload renders again.

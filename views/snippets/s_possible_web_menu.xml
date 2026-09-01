@@ -1,7 +1,7 @@
 <odoo>
   <template id="s_possible_web_menu" name="POS Web Menu">
     <section class="s_possible_web_menu o_cc o_cc1 pt48 pb48" data-snippet="s_possible_web_menu" data-name="POS Web Menu" data-config-version="1" data-pricelist-id="" data-pos-category-ids="" data-include-child-categories="true" data-filter-sale="true" data-filter-pos="true" data-filter-purchase="false" data-filter-mode="all" data-show-description="true" data-show-internal-reference="false" data-show-uncategorized="false" data-tax-display="included" data-sort-mode="favorite_ref_name" data-layout="leaders">
-      <div class="container"><h2 class="s_possible_web_menu_title">Menu</h2><p class="s_possible_web_menu_subtitle">Discover our selection</p><div class="s_possible_web_menu_content" aria-busy="false"/><p class="s_possible_web_menu_editor_warning d-none" data-editor-only="true">Configure this menu</p></div>
+      <div class="container"><h2 class="s_possible_web_menu_title">Menu</h2><p class="s_possible_web_menu_subtitle">Discover our selection</p><div class="s_possible_web_menu_content" aria-busy="false"/><p class="s_possible_web_menu_editor_warning d-none" data-editor-only="true" data-warning="configure">Configure this menu to preview products.</p><p class="s_possible_web_menu_editor_warning d-none" data-editor-only="true" data-warning="empty">No products match this menu configuration.</p><p class="s_possible_web_menu_editor_warning d-none" data-editor-only="true" data-warning="failure">The menu preview is temporarily unavailable.</p></div>
     </section>
   </template>
 </odoo>

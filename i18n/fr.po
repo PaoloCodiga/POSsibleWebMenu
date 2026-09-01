@@ -1,0 +1,16 @@
+# Translation of Odoo Server.
+#. module: possible_web_menu
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0\\n"
+"Language: fr\\n"
+"Content-Type: text/plain; charset=UTF-8\\n"
+
+msgid "Configure this menu to preview products."
+msgstr "Configurez ce menu pour prévisualiser les produits."
+
+msgid "No products match this menu configuration."
+msgstr "Aucun produit ne correspond à cette configuration de menu."
+
+msgid "The menu preview is temporarily unavailable."
+msgstr "L'aperçu du menu est temporairement indisponible."

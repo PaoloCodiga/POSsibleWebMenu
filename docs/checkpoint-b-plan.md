@@ -14,12 +14,14 @@
 - Completion: independent snippet instances refresh correctly.
 - Commit status: pending.
 
-## B3 — Clean-before-save behavior and public browser tour
+## B3 — Builder-safe runtime and persistence boundary
 
-- Deliverables: save cleanup and public website tour.
-- Tests: page architecture assertion and browser tour.
-- Completion: generated HTML never persists.
-- Commit status: pending.
+- Runtime QWeb output is wrapped in `.o_possible_web_menu_generated`.
+- The Odoo 19 Website Builder plugin cleans this runtime boundary only from the detached save clone.
+- Canonical `data-*` configuration, headings, subtitles, static content container, and authored content remain intact.
+- Isolated HOOT descriptors: `@possible_web_menu/possible_web_menu_utils`, `@possible_web_menu/possible_web_menu_interaction`, and `@possible_web_menu/possible_web_menu_builder_cleanup`.
+- A real Chrome Website Builder tour saves a configured fixture page, verifies the persisted architecture contains no generated runtime markup, and verifies a public reload renders the menu again.
+- Checkpoint C remains responsible for the configuration dialog and Builder actions.
 
 ## C — Website Builder configuration dialog
 
