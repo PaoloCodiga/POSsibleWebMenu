@@ -72,3 +72,9 @@ export class PossibleWebMenuInteraction extends Interaction {
     }
 }
 registry.category("public.interactions").add("possible_web_menu", PossibleWebMenuInteraction);
+registry.category("public.interactions.edit").add("possible_web_menu", {
+    Interaction: PossibleWebMenuInteraction,
+});
+registry.category("public.interactions.preview").add("possible_web_menu", {
+    Interaction: PossibleWebMenuInteraction,
+});

@@ -78,3 +78,18 @@ Verified against local official image `odoo:19.0` reporting `19.0-20260810`.
 - `website/static/src/builder/plugins/options/countdown_option_plugin.js`:
   standard options use `BuilderAction` and `dispatchTo("update_interactions",
   editingElement)` when an option needs its public interaction restarted.
+
+## C3 Builder insertion and edit lifecycle
+
+- `website/static/src/js/tours/tour_utils.js`: `insertSnippet()` is the
+  supported Website Builder tour helper. For a custom snippet group it opens
+  the group and inserts the selected snippet through the native add dialog.
+- `website/static/src/core/website_edit_service.js`: refreshing interactions
+  in edit mode stops affected public instances, then activates entries from
+  `public.interactions.edit`. A dynamic public interaction that must refresh
+  after Builder configuration changes therefore needs an edit registry entry.
+- `website_sale/static/src/snippets/s_dynamic_snippet_products/dynamic_snippet_products.js`:
+  dynamic snippets register the same interaction in `public.interactions`,
+  `public.interactions.edit`, and `public.interactions.preview`. The POS Web
+  Menu follows that Odoo 19 pattern so newly inserted snippets render after
+  Builder Apply as well as after a public-page reload.

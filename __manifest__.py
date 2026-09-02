@@ -39,6 +39,7 @@
             "possible_web_menu/static/tests/possible_web_menu_builder_persistence_tour.js",
             "possible_web_menu/static/tests/possible_web_menu_builder_configuration_tour.js",
             "possible_web_menu/static/tests/possible_web_menu_builder_apply_tour.js",
+            "possible_web_menu/static/tests/possible_web_menu_builder_release_tour.js",
         ],
     },
     "application": False,

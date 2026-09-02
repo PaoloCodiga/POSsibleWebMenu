@@ -445,3 +445,94 @@ class TestPossibleWebMenuBuilderApply(HttpCase):
                 environment["product.template"].browse(fixture_ids["product"]).unlink()
                 environment["pos.category"].browse(fixture_ids["category"]).unlink()
                 cursor.commit()
+
+
+@tagged("post_install", "-at_install", "possible_web_menu", "possible_web_menu_builder_release")
+class TestPossibleWebMenuBuilderRelease(HttpCase):
+    def test_builder_release_workflow_persists_configuration_and_renders_on_reload(self):
+        with self.registry.cursor() as cursor:
+            environment = api.Environment(cursor, SUPERUSER_ID, {})
+            website = environment["website"].get_current_website()
+            category = environment["pos.category"].create({"name": "C3 Release Category"})
+            pricelist = environment["product.pricelist"].create({
+                "name": "C3 Release Pricelist",
+                "active": True,
+                "web_menu_available": True,
+                "company_id": False,
+            })
+            product = environment["product.template"].create({
+                "name": "C3 Release Visible Product",
+                "list_price": 17.25,
+                "available_in_pos": True,
+                "sale_ok": True,
+                "web_menu_visible": True,
+                "company_id": website.company_id.id,
+                "pos_categ_ids": [(6, 0, [category.id])],
+            })
+            view = environment["ir.ui.view"].create({
+                "name": "C3 builder release page",
+                "type": "qweb",
+                "key": "possible_web_menu.c3_builder_release_page",
+                "arch": '''<t t-name="possible_web_menu.c3_builder_release_page"><t t-call="website.layout"><div id="wrap"><div id="c3_menu_target" class="oe_structure"/></div></t></t>''',
+            })
+            page = environment["website.page"].create({
+                "url": "/c3-builder-release",
+                "view_id": view.id,
+                "website_id": website.id,
+                "is_published": True,
+            })
+            cursor.commit()
+            fixture_ids = {
+                "category": category.id,
+                "pricelist": pricelist.id,
+                "product": product.id,
+                "view": view.id,
+                "page": page.id,
+            }
+        try:
+            self.start_tour(
+                self.env["website"].get_client_action_url("/c3-builder-release"),
+                "possible_web_menu_builder_release",
+                login="admin",
+            )
+            with self.registry.cursor() as cursor:
+                environment = api.Environment(cursor, SUPERUSER_ID, {})
+                persisted_architecture = environment["ir.ui.view"].browse(fixture_ids["view"]).arch_db
+                self.assertIn(f'data-pricelist-id="{fixture_ids["pricelist"]}"', persisted_architecture)
+                self.assertIn(f'data-pos-category-ids="{fixture_ids["category"]}"', persisted_architecture)
+                self.assertIn('data-layout="two_columns"', persisted_architecture)
+                self.assertNotIn("o_possible_web_menu_generated", persisted_architecture)
+                self.assertNotIn("C3 Release Visible Product", persisted_architecture)
+                self.assertNotIn("17.25", persisted_architecture)
+            self.browser_js(
+                "/c3-builder-release",
+                """
+                new Promise((resolve, reject) => {
+                    const deadline = Date.now() + 30000;
+                    const waitForRender = () => {
+                        const generated = document.querySelector(".o_possible_web_menu_generated");
+                        if (generated?.textContent.includes("C3 Release Visible Product")) {
+                            console.log("test successful");
+                            resolve();
+                            return;
+                        }
+                        if (Date.now() >= deadline) {
+                            reject(new Error("C3 public reload did not render the configured menu"));
+                            return;
+                        }
+                        setTimeout(waitForRender, 100);
+                    };
+                    waitForRender();
+                })
+                """,
+                timeout=35,
+            )
+        finally:
+            with self.registry.cursor() as cursor:
+                environment = api.Environment(cursor, SUPERUSER_ID, {})
+                environment["website.page"].browse(fixture_ids["page"]).unlink()
+                environment["ir.ui.view"].browse(fixture_ids["view"]).unlink()
+                environment["product.pricelist"].browse(fixture_ids["pricelist"]).unlink()
+                environment["product.template"].browse(fixture_ids["product"]).unlink()
+                environment["pos.category"].browse(fixture_ids["category"]).unlink()
+                cursor.commit()
