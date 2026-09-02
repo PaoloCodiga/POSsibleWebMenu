@@ -12,6 +12,7 @@ class TestWebMenuHoot(HOOTCommon):
         "@possible_web_menu/possible_web_menu_utils",
         "@possible_web_menu/possible_web_menu_interaction",
         "@possible_web_menu/possible_web_menu_builder_cleanup",
+        "@possible_web_menu/possible_web_menu_builder_configuration",
     )
 
     @classmethod

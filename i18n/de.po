@@ -14,3 +14,117 @@ msgstr "Keine Produkte entsprechen dieser Menükonfiguration."
 
 msgid "The menu preview is temporarily unavailable."
 msgstr "Die Menüvorschau ist vorübergehend nicht verfügbar."
+
+msgid "The menu configuration options could not be loaded."
+msgstr "Die Menü-Konfigurationsoptionen konnten nicht geladen werden."
+
+msgid "Configure menu"
+msgstr "Menü konfigurieren"
+
+msgid "Configure pricelist, categories, filters and layout."
+msgstr "Preisliste, Kategorien, Filter und Layout konfigurieren."
+
+msgid "Pricelist"
+msgstr "Preisliste"
+
+msgid "Select a pricelist"
+msgstr "Wählen Sie eine Preisliste"
+
+msgid "Select a pricelist."
+msgstr "Wählen Sie eine Preisliste."
+
+msgid "POS categories"
+msgstr "POS-Kategorien"
+
+msgid "Search categories..."
+msgstr "Kategorien suchen..."
+
+msgid "No categories found."
+msgstr "Keine Kategorien gefunden."
+
+msgid "Include child categories"
+msgstr "Unterkategorien einbeziehen"
+
+msgid "Product filters"
+msgstr "Produktfilter"
+
+msgid "Saleable products"
+msgstr "Verkaufbare Produkte"
+
+msgid "Available in Point of Sale"
+msgstr "Im Kassensystem verfügbar"
+
+msgid "Purchasable products"
+msgstr "Einkaufbare Produkte"
+
+msgid "Filter matching"
+msgstr "Filterabgleich"
+
+msgid "All selected filters"
+msgstr "Alle ausgewählten Filter"
+
+msgid "Any selected filter"
+msgstr "Beliebiger ausgewählter Filter"
+
+msgid "Show description"
+msgstr "Beschreibung anzeigen"
+
+msgid "Show internal reference"
+msgstr "Interne Referenz anzeigen"
+
+msgid "Show uncategorized products"
+msgstr "Nicht kategorisierte Produkte anzeigen"
+
+msgid "Tax display"
+msgstr "Steueranzeige"
+
+msgid "Tax included"
+msgstr "Steuern inbegriffen"
+
+msgid "Tax excluded"
+msgstr "Steuern ausgeschlossen"
+
+msgid "Sort products by"
+msgstr "Produkte sortieren nach"
+
+msgid "Favorite, reference, name"
+msgstr "Favorit, Referenz, Name"
+
+msgid "POS sequence, name"
+msgstr "POS-Reihenfolge, Name"
+
+msgid "Name"
+msgstr "Name"
+
+msgid "Internal reference"
+msgstr "Interne Referenz"
+
+msgid "Layout"
+msgstr "Layout"
+
+msgid "Leaders"
+msgstr "Führungspunkte"
+
+msgid "Clean"
+msgstr "Klar"
+
+msgid "Two columns"
+msgstr "Zwei Spalten"
+
+msgid "Apply configuration"
+msgstr "Konfiguration anwenden"
+
+msgid "Cancel"
+msgstr "Abbrechen"
+
+msgid "Configuration is valid. Applying changes is available in Checkpoint C2."
+msgstr "Die Konfiguration ist gültig. Das Anwenden von Änderungen ist in Checkpoint C2 verfügbar."
+
+msgid "Validate configuration"
+msgstr "Konfiguration validieren"
+
+msgid "Applying changes is available in Checkpoint C2"
+msgstr "Das Anwenden von Änderungen ist in Checkpoint C2 verfügbar"
+
+msgid "Loading"
+msgstr "Laden"

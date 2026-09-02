@@ -307,3 +307,77 @@ class TestPossibleWebMenuBuilderPersistence(HttpCase):
                 environment["product.template"].browse(fixture_ids["product"]).unlink()
                 environment["pos.category"].browse(fixture_ids["category"]).unlink()
                 cursor.commit()
+
+
+@tagged("post_install", "-at_install", "possible_web_menu", "possible_web_menu_builder_configuration")
+class TestPossibleWebMenuBuilderConfiguration(HttpCase):
+    def test_builder_configuration_dialog_reads_existing_snippet_configuration(self):
+        with self.registry.cursor() as cursor:
+            environment = api.Environment(cursor, SUPERUSER_ID, {})
+            website = environment["website"].get_current_website()
+            category = environment["pos.category"].create({"name": "C1 Browser Category"})
+            pricelist = environment["product.pricelist"].create({
+                "name": "C1 Browser Pricelist",
+                "active": True,
+                "web_menu_available": True,
+                "company_id": False,
+            })
+            view = environment["ir.ui.view"].create({
+                "name": "C1 builder configuration page",
+                "type": "qweb",
+                "key": "possible_web_menu.c1_builder_configuration_page",
+                "arch": f'''<t t-name="possible_web_menu.c1_builder_configuration_page"><t t-call="website.layout"><div id="wrap"><section class="s_possible_web_menu" data-snippet="s_possible_web_menu" data-config-version="1" data-pricelist-id="{pricelist.id}" data-pos-category-ids="{category.id}" data-include-child-categories="true" data-filter-sale="true" data-filter-pos="true" data-filter-purchase="false" data-filter-mode="all" data-show-description="false" data-show-internal-reference="false" data-show-uncategorized="false" data-tax-display="included" data-sort-mode="favorite_ref_name" data-layout="leaders"><div class="container"><h2>C1 Builder Menu</h2><div class="s_possible_web_menu_content" aria-busy="false"/></div></section></div></t></t>''',
+            })
+            page = environment["website.page"].create({
+                "url": "/c1-builder-configuration",
+                "view_id": view.id,
+                "website_id": website.id,
+                "is_published": True,
+            })
+            original_architecture = view.arch_db
+            cursor.commit()
+            fixture_ids = {
+                "category": category.id,
+                "pricelist": pricelist.id,
+                "view": view.id,
+                "page": page.id,
+            }
+        try:
+            self.browser_js(
+                "/c1-builder-configuration",
+                """
+                (async () => {
+                    const response = await fetch("/possible_web_menu/builder/options", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ jsonrpc: "2.0", method: "call", params: {} }),
+                    });
+                    const payload = await response.json();
+                    const pricelists = payload.result?.pricelists || [];
+                    console.log("C1 builder options pricelists", pricelists.map((pricelist) => pricelist.id));
+                    if (!pricelists.some((pricelist) => pricelist.id === __FIXTURE_PRICELIST_ID__)) {
+                        throw new Error("The browser builder options route did not return the fixture pricelist");
+                    }
+                    console.log("test successful");
+                })()
+                """.replace("__FIXTURE_PRICELIST_ID__", str(pricelist.id)),
+                login="admin",
+                timeout=30,
+            )
+            self.start_tour(
+                self.env["website"].get_client_action_url("/c1-builder-configuration"),
+                "possible_web_menu_builder_configuration",
+                login="admin",
+            )
+            with self.registry.cursor() as cursor:
+                environment = api.Environment(cursor, SUPERUSER_ID, {})
+                persisted_architecture = environment["ir.ui.view"].browse(fixture_ids["view"]).arch_db
+                self.assertEqual(persisted_architecture, original_architecture)
+        finally:
+            with self.registry.cursor() as cursor:
+                environment = api.Environment(cursor, SUPERUSER_ID, {})
+                environment["website.page"].browse(fixture_ids["page"]).unlink()
+                environment["ir.ui.view"].browse(fixture_ids["view"]).unlink()
+                environment["product.pricelist"].browse(fixture_ids["pricelist"]).unlink()
+                environment["pos.category"].browse(fixture_ids["category"]).unlink()
+                cursor.commit()

@@ -22,3 +22,36 @@ Verified against local official image `odoo:19.0` reporting `19.0-20260810`.
   real positive pricelist and product. It proves public rendering before edit,
   uses the native Builder save action, asserts the persisted architecture has
   no generated runtime markup, and proves the public reload renders again.
+
+## C1 Website Builder configuration UI
+
+- `html_builder/static/src/core/utils.js`: `BaseOptionComponent` receives the
+  Builder environment, including `getEditingElement()` for the selected
+  snippet. A snippet option declares `static template` and `static selector`.
+  The active element can be a descendant, so snippet-level `data-*` reads use
+  `getEditingElement().closest(selector)`.
+- `website/static/src/builder/plugins/options/countdown_option_plugin.js`:
+  Website Builder options are registered through a `Plugin` in
+  `registry.category("website-plugins")`, with the option supplied through the
+  `builder_options` resource and a sequence from
+  `@html_builder/utils/option_sequence`.
+- `html_builder/static/src/core/builder_action.js`: `BuilderAction` is the
+  API that applies editor mutations and participates in Builder history. C1
+  deliberately does not register or invoke an action, so the dialog cannot
+  mutate the snippet before C2 adds the proper history operation.
+- `website/static/src/builder/plugins/options/embed_code_option_plugin.js` and
+  `embed_code_option_dialog.{js,xml}`: a Builder action or option opens a
+  custom OWL component with `this.services.dialog.add(Component, props)`; the
+  dialog extends `Component`, includes `Dialog`, and receives `close` in props.
+- `website/static/src/builder/plugins/font/add_font_dialog.js`: OWL dialogs use
+  `useState`, `onWillStart`, `useService`, and the supported
+  `rpc` import from `@web/core/network/rpc` for asynchronous loading and error
+  state. This is the pattern used by C1.
+- `website/static/src/builder/website_builder.js`: the active Website Builder
+  gathers classes from `registry.category("website-plugins")` into its editor
+  context. The dialog has access only to the selected element configuration
+  passed by the option component; it does not retain an editor DOM reference.
+- The C1 options route returns only allowed active web-menu pricelists
+  (identifier, name, currency) and POS categories (identifier, name, parent,
+  sequence, depth). The dialog uses native checkbox multi-selection, a local
+  case-insensitive category search, and depth indentation for the hierarchy.

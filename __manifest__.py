@@ -20,7 +20,9 @@
             "possible_web_menu/static/src/snippets/s_possible_web_menu/possible_web_menu.js",
         ],
         "website.website_builder_assets": [
+            "possible_web_menu/static/src/snippets/s_possible_web_menu/possible_web_menu_utils.js",
             "possible_web_menu/static/src/website_builder/possible_web_menu_option.xml",
+            "possible_web_menu/static/src/website_builder/possible_web_menu_configuration_dialog.js",
             "possible_web_menu/static/src/website_builder/possible_web_menu_option_plugin.js",
         ],
         "web.assets_unit_tests": [
@@ -28,11 +30,14 @@
             "possible_web_menu/static/src/snippets/s_possible_web_menu/possible_web_menu.js",
             "possible_web_menu/static/tests/possible_web_menu_utils.test.js",
             "possible_web_menu/static/tests/possible_web_menu_interaction.test.js",
+            "possible_web_menu/static/src/website_builder/possible_web_menu_configuration_dialog.js",
             "possible_web_menu/static/src/website_builder/possible_web_menu_option_plugin.js",
             "possible_web_menu/static/tests/possible_web_menu_builder_cleanup.test.js",
+            "possible_web_menu/static/tests/possible_web_menu_builder_configuration.test.js",
         ],
         "web.assets_tests": [
             "possible_web_menu/static/tests/possible_web_menu_builder_persistence_tour.js",
+            "possible_web_menu/static/tests/possible_web_menu_builder_configuration_tour.js",
         ],
     },
     "application": False,

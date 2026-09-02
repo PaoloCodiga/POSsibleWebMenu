@@ -14,3 +14,117 @@ msgstr "Aucun produit ne correspond à cette configuration de menu."
 
 msgid "The menu preview is temporarily unavailable."
 msgstr "L'aperçu du menu est temporairement indisponible."
+
+msgid "The menu configuration options could not be loaded."
+msgstr "Les options de configuration du menu n'ont pas pu être chargées."
+
+msgid "Configure menu"
+msgstr "Configurer le menu"
+
+msgid "Configure pricelist, categories, filters and layout."
+msgstr "Configurez la liste de prix, les catégories, les filtres et la mise en page."
+
+msgid "Pricelist"
+msgstr "Liste de prix"
+
+msgid "Select a pricelist"
+msgstr "Sélectionnez une liste de prix"
+
+msgid "Select a pricelist."
+msgstr "Sélectionnez une liste de prix."
+
+msgid "POS categories"
+msgstr "Catégories PDV"
+
+msgid "Search categories..."
+msgstr "Rechercher des catégories..."
+
+msgid "No categories found."
+msgstr "Aucune catégorie trouvée."
+
+msgid "Include child categories"
+msgstr "Inclure les sous-catégories"
+
+msgid "Product filters"
+msgstr "Filtres de produits"
+
+msgid "Saleable products"
+msgstr "Produits vendables"
+
+msgid "Available in Point of Sale"
+msgstr "Disponible au point de vente"
+
+msgid "Purchasable products"
+msgstr "Produits achetables"
+
+msgid "Filter matching"
+msgstr "Correspondance des filtres"
+
+msgid "All selected filters"
+msgstr "Tous les filtres sélectionnés"
+
+msgid "Any selected filter"
+msgstr "N'importe quel filtre sélectionné"
+
+msgid "Show description"
+msgstr "Afficher la description"
+
+msgid "Show internal reference"
+msgstr "Afficher la référence interne"
+
+msgid "Show uncategorized products"
+msgstr "Afficher les produits non catégorisés"
+
+msgid "Tax display"
+msgstr "Affichage des taxes"
+
+msgid "Tax included"
+msgstr "Taxes incluses"
+
+msgid "Tax excluded"
+msgstr "Taxes exclues"
+
+msgid "Sort products by"
+msgstr "Trier les produits par"
+
+msgid "Favorite, reference, name"
+msgstr "Favori, référence, nom"
+
+msgid "POS sequence, name"
+msgstr "Séquence PDV, nom"
+
+msgid "Name"
+msgstr "Nom"
+
+msgid "Internal reference"
+msgstr "Référence interne"
+
+msgid "Layout"
+msgstr "Mise en page"
+
+msgid "Leaders"
+msgstr "Points de suite"
+
+msgid "Clean"
+msgstr "Épuré"
+
+msgid "Two columns"
+msgstr "Deux colonnes"
+
+msgid "Apply configuration"
+msgstr "Appliquer la configuration"
+
+msgid "Cancel"
+msgstr "Annuler"
+
+msgid "Configuration is valid. Applying changes is available in Checkpoint C2."
+msgstr "La configuration est valide. L'application des modifications sera disponible au checkpoint C2."
+
+msgid "Validate configuration"
+msgstr "Valider la configuration"
+
+msgid "Applying changes is available in Checkpoint C2"
+msgstr "L'application des modifications sera disponible au checkpoint C2"
+
+msgid "Loading"
+msgstr "Chargement"

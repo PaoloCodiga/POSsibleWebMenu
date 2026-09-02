@@ -10,7 +10,8 @@ case "$command" in
   js-utils) run_hoot @possible_web_menu/possible_web_menu_utils ;;
   js-interaction) run_hoot @possible_web_menu/possible_web_menu_interaction ;;
   js-builder-cleanup) run_hoot @possible_web_menu/possible_web_menu_builder_cleanup ;;
+  js-builder-configuration) run_hoot @possible_web_menu/possible_web_menu_builder_configuration ;;
   backend) run_odoo odoo -d "$database" --db_host=db --db_user=odoo --db_password=odoo --addons-path=/usr/lib/python3/dist-packages/odoo/addons,/mnt/extra-addons -u possible_web_menu --test-enable --test-tags '/possible_web_menu,-/possible_web_menu:TestWebMenuHoot' --stop-after-init ;;
   checkpoint-b3) "$0" js-utils; "$0" js-interaction; "$0" js-builder-cleanup; "$0" backend ;;
-  *) echo "Usage: $0 {js-utils|js-interaction|js-builder-cleanup|backend|checkpoint-b3}" >&2; exit 2 ;;
+  *) echo "Usage: $0 {js-utils|js-interaction|js-builder-cleanup|js-builder-configuration|backend|checkpoint-b3}" >&2; exit 2 ;;
 esac

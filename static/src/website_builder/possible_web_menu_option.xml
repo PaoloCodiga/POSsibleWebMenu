@@ -1,1 +1,76 @@
-<templates xml:space="preserve"><t t-name="possible_web_menu.Option"><div class="o_we_custom_option"><button type="button" class="btn btn-primary">Configure menu</button><p class="small text-muted">Configure pricelist, categories, filters and layout.</p></div></t></templates>
+<templates xml:space="preserve">
+    <t t-name="possible_web_menu.Option">
+        <div class="o_we_custom_option">
+            <button type="button" class="btn btn-primary" t-on-click="openConfigurationDialog">Configure menu</button>
+            <p class="small text-muted">Configure pricelist, categories, filters and layout.</p>
+        </div>
+    </t>
+
+    <t t-name="possible_web_menu.ConfigurationDialog">
+        <Dialog title.translate="Configure menu" size="'xl'">
+            <t t-if="state.loading">
+                <div class="d-flex justify-content-center py-5">
+                    <i class="fa fa-spinner fa-spin fa-2x" aria-label="Loading"/>
+                </div>
+            </t>
+            <t t-elif="state.error">
+                <div class="alert alert-danger" role="alert">
+                    <t t-out="state.error"/>
+                </div>
+            </t>
+            <t t-else="">
+                <div class="row g-3">
+                    <div class="col-12">
+                        <label class="form-label" for="possible_web_menu_pricelist">Pricelist</label>
+                        <select id="possible_web_menu_pricelist" class="form-select" t-on-change="selectPricelist">
+                            <option value="">Select a pricelist</option>
+                            <t t-foreach="state.pricelists" t-as="pricelist" t-key="pricelist.id">
+                                <option t-att-value="pricelist.id" t-att-selected="pricelist.id == state.pricelistId"><t t-out="pricelist.name"/> (<t t-out="pricelist.currency"/>)</option>
+                            </t>
+                        </select>
+                        <div t-if="state.validationRequested and !isPricelistValid" class="invalid-feedback d-block">Select a pricelist.</div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label" for="possible_web_menu_category_search">POS categories</label>
+                        <input id="possible_web_menu_category_search" class="form-control mb-2" type="search" placeholder="Search categories..." t-model="state.categorySearch"/>
+                        <div class="border rounded p-2 overflow-auto" style="max-height: 16rem;">
+                            <t t-foreach="filteredCategories" t-as="category" t-key="category.id">
+                                <label class="form-check d-block" t-att-style="categoryIndent(category)">
+                                    <input class="form-check-input" type="checkbox" t-att-value="category.id" t-att-checked="isCategorySelected(category.id)" t-on-change="toggleCategory"/>
+                                    <span class="form-check-label"><t t-out="category.name"/></span>
+                                </label>
+                            </t>
+                            <p t-if="!filteredCategories.length" class="text-muted mb-0">No categories found.</p>
+                        </div>
+                        <label class="form-check mt-2">
+                            <input class="form-check-input" type="checkbox" t-model="state.includeChildCategories"/>
+                            <span class="form-check-label">Include child categories</span>
+                        </label>
+                    </div>
+
+                    <div class="col-md-6">
+                        <p class="form-label mb-2">Product filters</p>
+                        <label class="form-check"><input class="form-check-input" type="checkbox" t-model="state.filterSale"/><span class="form-check-label">Saleable products</span></label>
+                        <label class="form-check"><input class="form-check-input" type="checkbox" t-model="state.filterPos"/><span class="form-check-label">Available in Point of Sale</span></label>
+                        <label class="form-check"><input class="form-check-input" type="checkbox" t-model="state.filterPurchase"/><span class="form-check-label">Purchasable products</span></label>
+                        <div class="mt-2">
+                            <label class="form-label">Filter matching</label>
+                            <select class="form-select" t-model="state.filterMode"><option value="all">All selected filters</option><option value="any">Any selected filter</option></select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4"><label class="form-check"><input class="form-check-input" type="checkbox" t-model="state.showDescription"/><span class="form-check-label">Show description</span></label><label class="form-check"><input class="form-check-input" type="checkbox" t-model="state.showInternalReference"/><span class="form-check-label">Show internal reference</span></label><label class="form-check"><input class="form-check-input" type="checkbox" t-model="state.showUncategorized"/><span class="form-check-label">Show uncategorized products</span></label></div>
+                    <div class="col-md-4"><label class="form-label">Tax display</label><select class="form-select" t-model="state.taxDisplay"><option value="included">Tax included</option><option value="excluded">Tax excluded</option></select></div>
+                    <div class="col-md-4"><label class="form-label">Sort products by</label><select class="form-select" t-model="state.sortMode"><option value="favorite_ref_name">Favorite, reference, name</option><option value="pos_sequence_name">POS sequence, name</option><option value="name">Name</option><option value="internal_reference">Internal reference</option></select><label class="form-label mt-2">Layout</label><select class="form-select" t-model="state.layout"><option value="leaders">Leaders</option><option value="clean">Clean</option><option value="two_columns">Two columns</option></select></div>
+                </div>
+                <p t-if="state.validationMessage" class="alert alert-success mt-3 mb-0"><t t-out="state.validationMessage"/></p>
+            </t>
+            <t t-set-slot="footer">
+                <button class="btn btn-outline-primary" t-on-click="validateConfiguration">Validate configuration</button>
+                <button class="btn btn-primary" disabled="disabled" title="Applying changes is available in Checkpoint C2">Apply configuration</button>
+                <button class="btn btn-secondary" t-on-click="props.close">Cancel</button>
+            </t>
+        </Dialog>
+    </t>
+</templates>
