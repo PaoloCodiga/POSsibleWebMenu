@@ -381,3 +381,67 @@ class TestPossibleWebMenuBuilderConfiguration(HttpCase):
                 environment["product.pricelist"].browse(fixture_ids["pricelist"]).unlink()
                 environment["pos.category"].browse(fixture_ids["category"]).unlink()
                 cursor.commit()
+
+
+@tagged("post_install", "-at_install", "possible_web_menu", "possible_web_menu_builder_apply")
+class TestPossibleWebMenuBuilderApply(HttpCase):
+    def test_builder_apply_refreshes_preview_and_undo_redo_restores_configuration(self):
+        with self.registry.cursor() as cursor:
+            environment = api.Environment(cursor, SUPERUSER_ID, {})
+            website = environment["website"].get_current_website()
+            category = environment["pos.category"].create({"name": "C2 Builder Category"})
+            pricelist = environment["product.pricelist"].create({
+                "name": "C2 Builder Pricelist",
+                "active": True,
+                "web_menu_available": True,
+                "company_id": False,
+            })
+            product = environment["product.template"].create({
+                "name": "C2 Builder Visible Product",
+                "list_price": 12.5,
+                "available_in_pos": True,
+                "sale_ok": True,
+                "web_menu_visible": True,
+                "company_id": website.company_id.id,
+                "pos_categ_ids": [(6, 0, [category.id])],
+            })
+            view = environment["ir.ui.view"].create({
+                "name": "C2 builder apply page",
+                "type": "qweb",
+                "key": "possible_web_menu.c2_builder_apply_page",
+                "arch": f'''<t t-name="possible_web_menu.c2_builder_apply_page"><t t-call="website.layout"><div id="wrap"><section class="s_possible_web_menu" data-snippet="s_possible_web_menu" data-config-version="1" data-pricelist-id="{pricelist.id}" data-pos-category-ids="{category.id}" data-include-child-categories="true" data-filter-sale="true" data-filter-pos="true" data-filter-purchase="false" data-filter-mode="all" data-show-description="false" data-show-internal-reference="false" data-show-uncategorized="false" data-tax-display="included" data-sort-mode="favorite_ref_name" data-layout="leaders"><div class="container"><h2>C2 Builder Menu</h2><div class="s_possible_web_menu_content" aria-busy="false"/></div></section></div></t></t>''',
+            })
+            page = environment["website.page"].create({
+                "url": "/c2-builder-apply",
+                "view_id": view.id,
+                "website_id": website.id,
+                "is_published": True,
+            })
+            original_architecture = view.arch_db
+            cursor.commit()
+            fixture_ids = {
+                "category": category.id,
+                "pricelist": pricelist.id,
+                "product": product.id,
+                "view": view.id,
+                "page": page.id,
+            }
+        try:
+            self.start_tour(
+                self.env["website"].get_client_action_url("/c2-builder-apply"),
+                "possible_web_menu_builder_apply",
+                login="admin",
+            )
+            with self.registry.cursor() as cursor:
+                environment = api.Environment(cursor, SUPERUSER_ID, {})
+                persisted_architecture = environment["ir.ui.view"].browse(fixture_ids["view"]).arch_db
+                self.assertEqual(persisted_architecture, original_architecture)
+        finally:
+            with self.registry.cursor() as cursor:
+                environment = api.Environment(cursor, SUPERUSER_ID, {})
+                environment["website.page"].browse(fixture_ids["page"]).unlink()
+                environment["ir.ui.view"].browse(fixture_ids["view"]).unlink()
+                environment["product.pricelist"].browse(fixture_ids["pricelist"]).unlink()
+                environment["product.template"].browse(fixture_ids["product"]).unlink()
+                environment["pos.category"].browse(fixture_ids["category"]).unlink()
+                cursor.commit()

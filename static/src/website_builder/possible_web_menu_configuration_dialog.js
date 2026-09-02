@@ -9,6 +9,7 @@ export class PossibleWebMenuConfigurationDialog extends Component {
     static template = "possible_web_menu.ConfigurationDialog";
     static components = { Dialog };
     static props = {
+        applyConfiguration: Function,
         close: Function,
         configuration: Object,
     };
@@ -88,7 +89,31 @@ export class PossibleWebMenuConfigurationDialog extends Component {
     validateConfiguration() {
         this.state.validationRequested = true;
         this.state.validationMessage = this.isPricelistValid
-            ? _t("Configuration is valid. Applying changes is available in Checkpoint C2.")
+            ? _t("Configuration is valid.")
             : "";
+    }
+
+    applyConfiguration() {
+        this.state.validationRequested = true;
+        if (!this.isPricelistValid) {
+            return;
+        }
+        this.props.applyConfiguration({
+            configVersion: "1",
+            pricelistId: this.state.pricelistId,
+            posCategoryIds: [...this.state.selectedCategoryIds],
+            includeChildCategories: this.state.includeChildCategories,
+            filterSale: this.state.filterSale,
+            filterPos: this.state.filterPos,
+            filterPurchase: this.state.filterPurchase,
+            filterMode: this.state.filterMode,
+            showDescription: this.state.showDescription,
+            showInternalReference: this.state.showInternalReference,
+            showUncategorized: this.state.showUncategorized,
+            taxDisplay: this.state.taxDisplay,
+            sortMode: this.state.sortMode,
+            layout: this.state.layout,
+        });
+        this.props.close();
     }
 }

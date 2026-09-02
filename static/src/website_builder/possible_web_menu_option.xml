@@ -62,13 +62,13 @@
 
                     <div class="col-md-4"><label class="form-check"><input class="form-check-input" type="checkbox" t-model="state.showDescription"/><span class="form-check-label">Show description</span></label><label class="form-check"><input class="form-check-input" type="checkbox" t-model="state.showInternalReference"/><span class="form-check-label">Show internal reference</span></label><label class="form-check"><input class="form-check-input" type="checkbox" t-model="state.showUncategorized"/><span class="form-check-label">Show uncategorized products</span></label></div>
                     <div class="col-md-4"><label class="form-label">Tax display</label><select class="form-select" t-model="state.taxDisplay"><option value="included">Tax included</option><option value="excluded">Tax excluded</option></select></div>
-                    <div class="col-md-4"><label class="form-label">Sort products by</label><select class="form-select" t-model="state.sortMode"><option value="favorite_ref_name">Favorite, reference, name</option><option value="pos_sequence_name">POS sequence, name</option><option value="name">Name</option><option value="internal_reference">Internal reference</option></select><label class="form-label mt-2">Layout</label><select class="form-select" t-model="state.layout"><option value="leaders">Leaders</option><option value="clean">Clean</option><option value="two_columns">Two columns</option></select></div>
+                    <div class="col-md-4"><label class="form-label" for="possible_web_menu_sort_mode">Sort products by</label><select id="possible_web_menu_sort_mode" class="form-select" t-model="state.sortMode"><option value="favorite_ref_name">Favorite, reference, name</option><option value="pos_sequence_name">POS sequence, name</option><option value="name">Name</option><option value="internal_reference">Internal reference</option></select><label class="form-label mt-2" for="possible_web_menu_layout">Layout</label><select id="possible_web_menu_layout" class="form-select" t-model="state.layout"><option value="leaders">Leaders</option><option value="clean">Clean</option><option value="two_columns">Two columns</option></select></div>
                 </div>
                 <p t-if="state.validationMessage" class="alert alert-success mt-3 mb-0"><t t-out="state.validationMessage"/></p>
             </t>
             <t t-set-slot="footer">
                 <button class="btn btn-outline-primary" t-on-click="validateConfiguration">Validate configuration</button>
-                <button class="btn btn-primary" disabled="disabled" title="Applying changes is available in Checkpoint C2">Apply configuration</button>
+                <button class="btn btn-primary" t-on-click="applyConfiguration">Apply configuration</button>
                 <button class="btn btn-secondary" t-on-click="props.close">Cancel</button>
             </t>
         </Dialog>

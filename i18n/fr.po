@@ -117,14 +117,11 @@ msgstr "Appliquer la configuration"
 msgid "Cancel"
 msgstr "Annuler"
 
-msgid "Configuration is valid. Applying changes is available in Checkpoint C2."
-msgstr "La configuration est valide. L'application des modifications sera disponible au checkpoint C2."
+msgid "Configuration is valid."
+msgstr "La configuration est valide."
 
 msgid "Validate configuration"
 msgstr "Valider la configuration"
-
-msgid "Applying changes is available in Checkpoint C2"
-msgstr "L'application des modifications sera disponible au checkpoint C2"
 
 msgid "Loading"
 msgstr "Chargement"

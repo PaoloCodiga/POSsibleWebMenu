@@ -55,3 +55,26 @@ Verified against local official image `odoo:19.0` reporting `19.0-20260810`.
   (identifier, name, currency) and POS categories (identifier, name, parent,
   sequence, depth). The dialog uses native checkbox multi-selection, a local
   case-insensitive category search, and depth indentation for the hierarchy.
+
+## C2 atomic apply and Builder history
+
+- `html_builder/static/src/core/builder_action.js`: a `BuilderAction` receives
+  the editor context and implements `apply({ editingElement, value })`. The
+  action is the supported place for a related DOM mutation; it may dispatch
+  `update_interactions` after the mutation to refresh public interactions.
+- `html_builder/static/src/core/builder_actions_plugin.js`: Builder actions are
+  registered through the plugin `builder_actions` resource. Calling
+  `editor.shared.builderActions.applyAction(actionId, spec)` executes the
+  action through the operation mutex and calls `history.addStep()` once after
+  the action completes. Therefore all synchronous changes inside one action
+  are a single undo/redo entry.
+- `html_builder/static/src/core/operation_plugin.js`: `operation.next()`
+  serializes Builder operations. It is used internally by `applyAction()` and
+  should not be replaced with a custom undo stack.
+- `html_builder/static/src/builder.js`: the Website Builder’s Undo and Redo
+  controls invoke `editor.shared.history.undo()` and `.redo()` through the
+  same operation mutex. Attribute mutation records produced by one C2 action
+  are restored together while the selected snippet remains connected.
+- `website/static/src/builder/plugins/options/countdown_option_plugin.js`:
+  standard options use `BuilderAction` and `dispatchTo("update_interactions",
+  editingElement)` when an option needs its public interaction restarted.
