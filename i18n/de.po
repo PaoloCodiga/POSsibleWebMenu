@@ -6,122 +6,162 @@ msgstr ""
 "Language: de\\n"
 "Content-Type: text/plain; charset=UTF-8\\n"
 
+#. module: possible_web_menu
 msgid "Configure this menu to preview products."
 msgstr "Konfigurieren Sie dieses Menü, um Produkte in der Vorschau anzuzeigen."
 
+#. module: possible_web_menu
 msgid "No products match this menu configuration."
 msgstr "Keine Produkte entsprechen dieser Menükonfiguration."
 
+#. module: possible_web_menu
 msgid "The menu preview is temporarily unavailable."
 msgstr "Die Menüvorschau ist vorübergehend nicht verfügbar."
 
+#. module: possible_web_menu
 msgid "The menu configuration options could not be loaded."
 msgstr "Die Menü-Konfigurationsoptionen konnten nicht geladen werden."
 
+#. module: possible_web_menu
 msgid "Configure menu"
 msgstr "Menü konfigurieren"
 
+#. module: possible_web_menu
 msgid "Configure pricelist, categories, filters and layout."
 msgstr "Preisliste, Kategorien, Filter und Layout konfigurieren."
 
+#. module: possible_web_menu
 msgid "Pricelist"
 msgstr "Preisliste"
 
+#. module: possible_web_menu
 msgid "Select a pricelist"
 msgstr "Wählen Sie eine Preisliste"
 
+#. module: possible_web_menu
 msgid "Select a pricelist."
 msgstr "Wählen Sie eine Preisliste."
 
+#. module: possible_web_menu
 msgid "POS categories"
 msgstr "POS-Kategorien"
 
+#. module: possible_web_menu
 msgid "Search categories..."
 msgstr "Kategorien suchen..."
 
+#. module: possible_web_menu
 msgid "No categories found."
 msgstr "Keine Kategorien gefunden."
 
+#. module: possible_web_menu
 msgid "Include child categories"
 msgstr "Unterkategorien einbeziehen"
 
+#. module: possible_web_menu
 msgid "Product filters"
 msgstr "Produktfilter"
 
+#. module: possible_web_menu
 msgid "Saleable products"
 msgstr "Verkaufbare Produkte"
 
+#. module: possible_web_menu
 msgid "Available in Point of Sale"
 msgstr "Im Kassensystem verfügbar"
 
+#. module: possible_web_menu
 msgid "Purchasable products"
 msgstr "Einkaufbare Produkte"
 
+#. module: possible_web_menu
 msgid "Filter matching"
 msgstr "Filterabgleich"
 
+#. module: possible_web_menu
 msgid "All selected filters"
 msgstr "Alle ausgewählten Filter"
 
+#. module: possible_web_menu
 msgid "Any selected filter"
 msgstr "Beliebiger ausgewählter Filter"
 
+#. module: possible_web_menu
 msgid "Show description"
 msgstr "Beschreibung anzeigen"
 
+#. module: possible_web_menu
 msgid "Show internal reference"
 msgstr "Interne Referenz anzeigen"
 
+#. module: possible_web_menu
 msgid "Show uncategorized products"
 msgstr "Nicht kategorisierte Produkte anzeigen"
 
+#. module: possible_web_menu
 msgid "Tax display"
 msgstr "Steueranzeige"
 
+#. module: possible_web_menu
 msgid "Tax included"
 msgstr "Steuern inbegriffen"
 
+#. module: possible_web_menu
 msgid "Tax excluded"
 msgstr "Steuern ausgeschlossen"
 
+#. module: possible_web_menu
 msgid "Sort products by"
 msgstr "Produkte sortieren nach"
 
+#. module: possible_web_menu
 msgid "Favorite, reference, name"
 msgstr "Favorit, Referenz, Name"
 
+#. module: possible_web_menu
 msgid "POS sequence, name"
 msgstr "POS-Reihenfolge, Name"
 
+#. module: possible_web_menu
 msgid "Name"
 msgstr "Name"
 
+#. module: possible_web_menu
 msgid "Internal reference"
 msgstr "Interne Referenz"
 
+#. module: possible_web_menu
 msgid "Layout"
 msgstr "Layout"
 
+#. module: possible_web_menu
 msgid "Leaders"
 msgstr "Führungspunkte"
 
+#. module: possible_web_menu
 msgid "Clean"
 msgstr "Klar"
 
+#. module: possible_web_menu
 msgid "Two columns"
 msgstr "Zwei Spalten"
 
+#. module: possible_web_menu
 msgid "Apply configuration"
 msgstr "Konfiguration anwenden"
 
+#. module: possible_web_menu
 msgid "Cancel"
 msgstr "Abbrechen"
 
+#. module: possible_web_menu
 msgid "Configuration is valid."
 msgstr "Die Konfiguration ist gültig."
 
+#. module: possible_web_menu
 msgid "Validate configuration"
 msgstr "Konfiguration validieren"
 
+#. module: possible_web_menu
 msgid "Loading"
 msgstr "Laden"
