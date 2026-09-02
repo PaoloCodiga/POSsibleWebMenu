@@ -88,7 +88,7 @@ class PossibleWebMenuRenderer(models.AbstractModel):
 
     @api.model
     def _get_product_description(self, product):
-        text = html2plaintext(product.public_description or product.description_sale or "")
+        text = html2plaintext(product.web_menu_description or product.public_description or product.description_sale or "")
         return re.sub(r"\s+", " ", text).strip()
 
     @api.model

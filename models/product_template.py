@@ -6,6 +6,7 @@ class ProductTemplate(models.Model):
     _inherit = "product.template"
 
     web_menu_visible = fields.Boolean(string="Visible in Web Menu", default=False, copy=False, index=True)
+    web_menu_description = fields.Text(string="Web Menu Description", translate=True)
     web_menu_category_id = fields.Many2one(
         "pos.category", string="Primary Web Menu Category", ondelete="set null", index=True,
         domain="[('id', 'in', pos_categ_ids)]",
