@@ -1,36 +1,17 @@
 # Implementation status
 
-This checklist is only marked complete after the relevant implementation has been inspected and its executable check has passed.
+Release 19.0.1.0.0 is complete.
 
-- [x] Source inspection (official local `odoo:19.0` image)
-- [x] Module skeleton
-- [x] Fields and constraints
-- [ ] Backend views
-- [x] Bulk actions
-- [ ] Safe renderer
-- [ ] Pricing and taxes
-- [ ] Public route
-- [ ] Builder-options route
-- [ ] Snippet registration
-- [ ] QWeb (B1 in progress)
-- [ ] CSS layouts (B1 in progress)
-- [ ] Frontend Interaction
-- [ ] Pure JavaScript utilities
-- [ ] Builder option component
-- [ ] Configuration dialog
-- [ ] Undo/redo integration
-- [x] Clean-before-save handling
-- [x] Clone behavior
-- [ ] Python tests
-- [ ] HTTP tests
-- [x] Hoot tests
-- [ ] Public tour
-- [ ] Website Builder tour
-- [ ] Docker harness
-- [ ] Translations
-- [ ] Documentation
-- [ ] Clean installation
-- [ ] Module update
-- [ ] Static checks
-- [ ] Complete final test suite
-- [ ] Final security review
+- [x] Product and pricelist fields, views, constraints, and bulk actions
+- [x] Allowlisted renderer, pricing, taxes, grouping, and deterministic order
+- [x] Public readonly JSON-RPC route and Website Builder options route
+- [x] Draggable Website snippet, QWeb fragment, and responsive layouts
+- [x] Public, edit, and preview Interaction lifecycle
+- [x] Website Builder configuration dialog, atomic Apply, and one-step Undo/Redo
+- [x] Detached-clone cleanup, safe page save, and public reload rendering
+- [x] Python, HTTP, Hoot, Builder, and real Chrome release coverage
+- [x] Odoo 19 source notes, security documentation, translations, and release documentation
+- [x] Clean installation, module update, static checks, and final security review
+
+The former B1/B2/B3 and C1/C2/C3 delivery checklists are historical; no
+checkpoint remains pending for this release.

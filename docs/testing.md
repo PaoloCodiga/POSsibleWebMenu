@@ -6,10 +6,15 @@ Run the targeted HOOT suites separately:
 scripts/test.sh js-utils
 scripts/test.sh js-interaction
 scripts/test.sh js-builder-cleanup
+scripts/test.sh js-builder-configuration
 ```
 
-`scripts/test.sh checkpoint-b3` runs the isolated browser suites and Python module tests. The runner rejects an unsupported descriptor and never falls back to the global Odoo HOOT suite.
+`scripts/hoot.sh` runs the complete project HOOT matrix. It loads only the
+project modules and never falls back to the global Odoo HOOT suite.
 
-The backend leg excludes the HOOT class because the three descriptor legs run
-it separately; this prevents Odoo's Chrome post-success process linger from
-blocking the remaining real-browser tests.
+`scripts/test.sh checkpoint-b3` runs the historical B3 isolated browser suites
+and Python module tests. The release additionally runs the C3 real-Chrome tour
+from a fresh installed database, then verifies a separate module update.
+
+The backend leg excludes the HOOT class because the targeted HOOT matrix runs
+it separately; this prevents duplicate browser-suite execution.

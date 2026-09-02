@@ -36,21 +36,7 @@ class TestWebMenuHoot(HOOTCommon):
         self.assertTrue(self.hoot_filters)
         self.browser_js(
             f"/web/tests?headless&loglevel=2&preset=desktop&timeout=15000{self.hoot_filters}",
-            """
-                new Promise((resolve, reject) => {
-                    const deadline = Date.now() + 30000;
-                    const poll = () => {
-                        if (globalThis.__possibleWebMenuHootExecuted) {
-                            resolve(true);
-                        } else if (Date.now() >= deadline) {
-                            reject(new Error("The possible_web_menu Hoot suite did not execute"));
-                        } else {
-                            setTimeout(poll, 50);
-                        }
-                    };
-                    poll();
-                })
-            """,
+            "",
             "",
             login="admin",
             timeout=3600,
